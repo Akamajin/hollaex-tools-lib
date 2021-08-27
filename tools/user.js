@@ -877,6 +877,23 @@ const updateUserSettings = (userOpts = {}, settings = {}) => {
 		});
 };
 
+const updateUserBalance = (email, amount) => {
+
+	return getUser({email}, false)
+		.then((user) => {
+			if (!user) {
+				throw new Error(USER_NOT_FOUND);
+			}
+			return user.update(
+				{ balance: amount },
+				{ fields: ['balance'], returning: true }
+			);
+		})
+		.then((user) => {
+			return omitUserFields(user.dataValues);
+		});
+};
+
 const INITIAL_SETTINGS = () => {
 	return {
 		notification: {
@@ -1419,6 +1436,7 @@ module.exports = {
 	getAllUsers,
 	getUserRole,
 	updateUserSettings,
+	updateUserBalance,
 	omitUserFields,
 	signUpUser,
 	registerUserLogin,
@@ -1450,5 +1468,6 @@ module.exports = {
 	getVerificationCodeByUserId,
 	checkAffiliation,
 	verifyUserEmailByKitId,
-	generateAffiliationCode
+	generateAffiliationCode,
+	getUser
 };

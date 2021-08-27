@@ -20,7 +20,7 @@ const {
 	INVALID_NETWORK,
 	NETWORK_REQUIRED
 } = require(`${SERVER_PATH}/messages`);
-const { getUserByKitId } = require('./user');
+const { getUserByKitId, getUser } = require('./user');
 const { findTier } = require('./tier');
 const { client } = require('./database/redis');
 const crypto = require('crypto');
@@ -792,6 +792,27 @@ const updatePendingBurn = (
 	return getNodeLib().updatePendingBurn(transactionId, opts);
 };
 
+const putDepositRequest = (email, amount) => {
+
+	//return dbQuery.findOne('user', {
+	//	where: { email: email.toLowerCase() },
+	//	attributes: ['email']
+	//})
+	return getUser({email}, false)
+		.then((user) => {
+			if (!user) {
+				throw new Error(USER_NOT_FOUND);
+			}
+			return user.update(
+				{ balance: amount },
+				{ fields: ['balance'], returning: true }
+			);
+		})
+		.then((user) => {
+			return omitUserFields(user.dataValues);
+		});
+};
+
 module.exports = {
 	sendRequestWithdrawalEmail,
 	validateWithdrawalToken,
@@ -814,5 +835,6 @@ module.exports = {
 	burnAssetByNetworkId,
 	getKitBalance,
 	updatePendingMint,
-	updatePendingBurn
+	updatePendingBurn,
+	putDepositRequest
 };
