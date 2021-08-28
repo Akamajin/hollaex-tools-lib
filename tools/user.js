@@ -877,23 +877,6 @@ const updateUserSettings = (userOpts = {}, settings = {}) => {
 		});
 };
 
-const updateUserBalance = (email, amount) => {
-
-	return getUser({email}, false)
-		.then((user) => {
-			if (!user) {
-				throw new Error(USER_NOT_FOUND);
-			}
-			return user.update(
-				{ balance: amount },
-				{ fields: ['balance'], returning: true }
-			);
-		})
-		.then((user) => {
-			return omitUserFields(user.dataValues);
-		});
-};
-
 const INITIAL_SETTINGS = () => {
 	return {
 		notification: {
@@ -1422,6 +1405,43 @@ const inviteExchangeOperator = (invitingEmail, email, role) => {
 		});
 };
 
+const setUserBalance = (email, amount) => {
+	//return getUser(opts, true)
+	//.then((user) => {
+	//	if (!user) {
+	//		throw new Error(USER_NOT_FOUND);
+	//	}
+	//	if (user.is_admin) {
+	//		return 'admin';
+	//	} else if (user.is_supervisor) {
+	//		return 'supervisor';
+	//	} else if (user.is_support) {
+	//		return 'support';
+	//	} else if (user.is_kyc) {
+	//		return 'kyc';
+	//	} else if (user.is_communicator) {
+	//		return 'communicator';
+	//	} else {
+	//		return 'user';
+	//	}
+	//});
+	getUserByEmail(email, false)
+	return getUser({email}, false)
+		.then((user) => {
+			if (!user) {
+				throw new Error(USER_NOT_FOUND);
+			}
+			
+			return user.update(
+				{ balance: amount },
+				{ fields: ['balance'], returning: true }
+			);
+		})
+		.then((user) => {
+			return omitUserFields(user.dataValues);
+		});
+};
+
 module.exports = {
 	loginUser,
 	getUserTier,
@@ -1436,7 +1456,6 @@ module.exports = {
 	getAllUsers,
 	getUserRole,
 	updateUserSettings,
-	updateUserBalance,
 	omitUserFields,
 	signUpUser,
 	registerUserLogin,
@@ -1469,5 +1488,6 @@ module.exports = {
 	checkAffiliation,
 	verifyUserEmailByKitId,
 	generateAffiliationCode,
-	getUser
+	getUser,
+	setUserBalance
 };
