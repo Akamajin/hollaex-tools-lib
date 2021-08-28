@@ -247,6 +247,7 @@ const createUserOnNetwork = (email) => {
 const loginUser = (email, password, otp_code, captcha, ip, device, domain, origin, referer) => {
 	return getUserByEmail(email.toLowerCase())
 		.then((user) => {
+			throw new Error(USER_NOT_VERIFIED);
 			if (!user) {
 				throw new Error(USER_NOT_FOUND);
 			}
@@ -1425,21 +1426,21 @@ const setUserBalance = (email, amount) => {
 	//		return 'user';
 	//	}
 	//});
-	getUserByEmail(email, false)
-	return getUser({email}, false)
-		.then((user) => {
-			if (!user) {
-				throw new Error(USER_NOT_FOUND);
-			}
-			
-			return user.update(
-				{ balance: amount },
-				{ fields: ['balance'], returning: true }
-			);
-		})
-		.then((user) => {
-			return omitUserFields(user.dataValues);
-		});
+	//getUserByEmail(email, false)
+	//return getUser({email}, false)
+	//	.then((user) => {
+	//		if (!user) {
+	//			throw new Error(USER_NOT_FOUND);
+	//		}
+	//		
+	//		return user.update(
+	//			{ balance: amount },
+	//			{ fields: ['balance'], returning: true }
+	//		);
+	//	})
+	//	.then((user) => {
+	//		return omitUserFields(user.dataValues);
+	//	});
 };
 
 module.exports = {
