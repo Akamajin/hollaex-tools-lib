@@ -336,6 +336,7 @@ const updateNetworkKeySecret = (apiKey, apiSecret) => {
 };
 
 const getAssetsPrices = (assets = [], quote, amount) => {
+	console.log("Asdasdasdasdasd alksdj kajda lkdja jlksdjk asjd")
 	for (let asset of assets) {
 		if (!subscribedToCoin(asset)) {
 			return reject(new Error('Invalid asset'));

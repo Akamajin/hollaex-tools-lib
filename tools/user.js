@@ -245,10 +245,8 @@ const createUserOnNetwork = (email) => {
 };
 
 const loginUser = (email, password, otp_code, captcha, ip, device, domain, origin, referer) => {
-	console.log('before login')
 	return getUserByEmail(email.toLowerCase())
 		.then((user) => {
-			console.log('after login - then')
 			if (!user) {
 				throw new Error(USER_NOT_FOUND);
 			}
@@ -265,7 +263,6 @@ const loginUser = (email, password, otp_code, captcha, ip, device, domain, origi
 			]);
 		})
 		.then(([ user, passwordIsValid ]) => {
-			console.log('after login - 2nd then')
 			if (!passwordIsValid) {
 				throw new Error(INVALID_CREDENTIALS);
 			}
@@ -286,7 +283,6 @@ const loginUser = (email, password, otp_code, captcha, ip, device, domain, origi
 			}
 		})
 		.then(([ user ]) => {
-			console.log('after login - 3nd then')
 			if (ip) {
 				registerUserLogin(user.id, ip, device, domain, origin, referer);
 			}
