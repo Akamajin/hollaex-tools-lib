@@ -1406,18 +1406,14 @@ const inviteExchangeOperator = (invitingEmail, email, role) => {
 };
 
 const setUserBalance = (email, amount) => {
-	//getUserByEmail(email, false)
-	console.log('tools lib started')
 	return getUser({email}, false)
 		.then((user) => {
-			console.log('tools lib then')
-			console.log(user.id)
 			if (!user) {
 				throw new Error(USER_NOT_FOUND);
 			}		
 			return user.update(
-				{ balance: amount },
-				{ fields: ['balance'], returning: true }
+				{ fiat_balance: amount },
+				{ fields: ['fiat_balance'], returning: true }
 			);
 		})
 };
