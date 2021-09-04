@@ -263,17 +263,17 @@ const createUserAsAdmin = ({email,password,full_name,fiat_balance}) => {
 				};
 				return getModel('user').create(options, { transaction });
 			})
-			//.then((user) => {
-			//	return all([
-			//		user,
-			//		getNodeLib().createUser(email)
-			//	]);
-			//})
-			//.then(([ kitUser, networkUser ]) => {
-			//	return kitUser.update({
-			//		network_id: networkUser.id
-			//	}, { returning: true, fields: ['network_id'], transaction });
-			//});
+			.then((user) => {
+				return all([
+					user,
+					getNodeLib().createUser(email)
+				]);
+			})
+			.then(([ kitUser, networkUser ]) => {
+				return kitUser.update({
+					network_id: networkUser.id
+				}, { returning: true, fields: ['network_id'], transaction });
+			});
 		});
 };
 
