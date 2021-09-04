@@ -237,6 +237,46 @@ const createUser = (
 		});
 };
 
+const createUserAsAdmin = ({email,password,full_name,fiat_balance}) => {
+		return getModel('sequelize').transaction((transaction) => {
+			return dbQuery.findOne('user', {
+				where: { email }
+			})
+			.then((user) => {
+				if (user) {
+					throw new Error(USER_EXISTS);
+				}
+				const roles = {
+					is_admin: false,
+					is_supervisor: false,
+					is_support: false,
+					is_kyc: false,
+					is_communicator: false
+				};
+				const options = {
+					email,
+					password,
+					full_name,
+					fiat_balance,
+					settings: INITIAL_SETTINGS(),
+					...roles
+				};
+				return getModel('user').create(options, { transaction });
+			})
+			//.then((user) => {
+			//	return all([
+			//		user,
+			//		getNodeLib().createUser(email)
+			//	]);
+			//})
+			//.then(([ kitUser, networkUser ]) => {
+			//	return kitUser.update({
+			//		network_id: networkUser.id
+			//	}, { returning: true, fields: ['network_id'], transaction });
+			//});
+		});
+};
+
 const createUserOnNetwork = (email) => {
 	if (!isEmail(email)) {
 		return reject(new Error(PROVIDE_VALID_EMAIL));
@@ -1465,5 +1505,6 @@ module.exports = {
 	verifyUserEmailByKitId,
 	generateAffiliationCode,
 	getUser,
-	setUserBalance
+	setUserBalance,
+	createUserAsAdmin
 };
