@@ -1445,19 +1445,6 @@ const inviteExchangeOperator = (invitingEmail, email, role) => {
 		});
 };
 
-const setUserBalance = (email, amount) => {
-	return getUser({email}, false)
-		.then((user) => {
-			if (!user) {
-				throw new Error(USER_NOT_FOUND);
-			}		
-			return user.update(
-				{ fiat_balance: amount },
-				{ fields: ['fiat_balance'], returning: true }
-			);
-		})
-};
-
 module.exports = {
 	loginUser,
 	getUserTier,
@@ -1505,6 +1492,5 @@ module.exports = {
 	verifyUserEmailByKitId,
 	generateAffiliationCode,
 	getUser,
-	setUserBalance,
 	createUserAsAdmin
 };
