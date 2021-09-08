@@ -27,11 +27,11 @@ const updateBalanceRow = ({id,action,amount,interest_rate,created_at}) => {
 	);
 };
 
-const deleteBalanceRow = ({id}) => {
+const deleteBalanceRow = (id) => {
 	return getModel('balances').destroy({ id });
 };
 
-const getBalanceRowByUserId = (userId) => {
+const getBalancesByUserId = (userId) => {
 	return dbQuery.findAndCountAllWithRows('balances', {
 		where: {
 			user_id: userId,
@@ -48,5 +48,5 @@ module.exports = {
 	createBalanceRow,
 	updateBalanceRow,
 	deleteBalanceRow,
-	getBalanceRowByUserId
+	getBalancesByUserId
 };
