@@ -3,20 +3,13 @@
 const { getModel } = require('./database/model');
 const dbQuery = require('./database/query');
 
-const createBalanceRow = ({email,action,amount,interest_rate,created_at}) => {
-	return getModel('sequelize').transaction((transaction) => {
-		return dbQuery.findOne('user', {
-			where: { email }
-		})
-		.then((user) => {
-			return getModel('user').create({
-				user_id: user.id,
-				created_at,
-				interest_rate,
-				action,
-				amount
-			});
-		})
+const createBalanceRow = ({user_id,action,amount,interest_rate,created_at}) => {
+	return getModel('balances').create({
+		user_id,
+		created_at,
+		interest_rate,
+		action,
+		amount
 	});
 };
 
