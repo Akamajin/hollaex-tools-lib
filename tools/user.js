@@ -237,7 +237,7 @@ const createUser = (
 		});
 };
 
-const createUserAsAdmin = ({email,password,full_name,fiat_balance}) => {
+const createUserAsAdmin = ({email,password,full_name}) => {
 		return getModel('sequelize').transaction((transaction) => {
 			return dbQuery.findOne('user', {
 				where: { email }
@@ -257,7 +257,6 @@ const createUserAsAdmin = ({email,password,full_name,fiat_balance}) => {
 					email,
 					password,
 					full_name,
-					fiat_balance,
 					settings: INITIAL_SETTINGS(),
 					...roles
 				};

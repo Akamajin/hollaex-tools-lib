@@ -8,6 +8,7 @@ const user = require('./user');
 const wallet = require('./wallet');
 const tier = require('./tier');
 const security = require('./security');
+const balances = require('./balances');
 
 module.exports = {
 	...common,
@@ -17,5 +18,6 @@ module.exports = {
 	user,
 	wallet,
 	tier,
-	security
+	security,
+	balances
 };
