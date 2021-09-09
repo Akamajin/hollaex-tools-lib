@@ -1,6 +1,7 @@
 'use strict';
 
 const { getModel } = require('./database/model');
+const dbQuery = require('./database/query');
 
 const createBalanceRow = ({email,action,amount,interest_rate,created_at}) => {
 	return getModel('sequelize').transaction((transaction) => {
