@@ -22,7 +22,7 @@ const updateBalanceRow = ({id,action,amount,interest_rate,created_at}) => {
 };
 
 const deleteBalanceRow = (id) => {
-	return getModel('balances').destroy({ id });
+	return getModel('balances').destroy({where: {id}});
 };
 
 const getBalancesByUserId = (userId) => {
