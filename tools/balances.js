@@ -23,18 +23,21 @@ const updateBalanceRow = ({id,action,amount,interest_rate,created_at}) => {
 
 const deleteBalanceRow = (id) => {
 	return getModel('balances').destroy({where: {id}});
+	//return getModel('balances').destroy({ id });
 };
 
 const getBalancesByUserId = (userId) => {
+	console.log(userId)
 	return dbQuery.findAndCountAllWithRows('balances', {
-		where: {
-			user_id: userId,
-		},
-		attributes: {
-			exclude: ['user_id', 'updated_at']
-		},
+		where: { user_id: userId },
+		attributes: { exclude: ['user_id', 'updated_at'] },
 		order: [['created_at', 'DESC'], ['id', 'ASC']],
-	}).then(({ count, data }) => {count, data});
+	}).then((res) => {
+		const { count, data } = res;
+		console.log("---------res----------");
+		console.log(res);
+		return {count, data};
+	});
 };
 
 
