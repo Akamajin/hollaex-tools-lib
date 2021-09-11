@@ -27,15 +27,12 @@ const deleteBalanceRow = (id) => {
 };
 
 const getBalancesByUserId = (userId) => {
-	console.log(userId)
 	return dbQuery.findAndCountAllWithRows('balances', {
 		where: { user_id: userId },
 		attributes: { exclude: ['user_id', 'updated_at'] },
 		order: [['created_at', 'DESC'], ['id', 'ASC']],
 	}).then((res) => {
 		const { count, data } = res;
-		console.log("---------res----------");
-		console.log(res);
 		return {count, data};
 	});
 };
