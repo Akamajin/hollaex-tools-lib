@@ -4,19 +4,17 @@ const { getModel } = require('./database/model');
 const dbQuery = require('./database/query');
 
 const createBalanceRow = ({user_id,action,amount,interest_rate,created_at}) => {
-	return getModel('balances').bulkCreate([{
+	return getModel('balances').create({
 		user_id,
 		created_at,
 		interest_rate,
 		action,
 		amount
-	},{
-		user_id,
-		created_at,
-		interest_rate,
-		action,
-		amount
-	}]);
+	});
+};
+
+const createBalanceRow = (data) => {
+	return getModel('balances').bulkCreate(data);
 };
 
 const updateBalanceRow = ({id,action,amount,interest_rate,created_at}) => {
