@@ -41,11 +41,18 @@ const getBalancesByUserId = (userId) => {
 	});
 };
 
+const getUsersWithDeposit = () => {
+  	return dbQuery.findAll('balances', {where: { action: 'Initial Deposit' }
+	}).then((res) => {
+		return res;
+	});
+}
 
 module.exports = {
 	createBalanceRow,
 	updateBalanceRow,
 	deleteBalanceRow,
 	getBalancesByUserId,
-	bulkCreateBalanceRow
+	bulkCreateBalanceRow,
+	getUsersWithDeposit
 };
