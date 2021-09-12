@@ -29,6 +29,10 @@ const create = (table, query = {}, options = {}) => {
 	return getModel(table).create(query, options);
 };
 
+const bulkCreate = (table, query = [], options = {}) => {
+	return getModel(table).bulkCreate(query, options);
+};
+
 const destroy = (table, query = {}, options = {}) => {
 	return getModel(table).destroy(query, options);
 };
@@ -90,6 +94,7 @@ module.exports = {
 	associateModel,
 	getModel,
 	create,
+	bulkCreate,
 	destroy,
 	update
 };
