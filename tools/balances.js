@@ -13,7 +13,7 @@ const createBalanceRow = ({user_id,action,amount,interest_rate,created_at}) => {
 	});
 };
 
-const createBalanceRow = (data) => {
+const bulkCreateBalanceRow = (data) => {
 	return getModel('balances').bulkCreate(data);
 };
 
@@ -46,5 +46,6 @@ module.exports = {
 	createBalanceRow,
 	updateBalanceRow,
 	deleteBalanceRow,
-	getBalancesByUserId
+	getBalancesByUserId,
+	bulkCreateBalanceRow
 };
