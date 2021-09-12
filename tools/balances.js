@@ -42,7 +42,9 @@ const getBalancesByUserId = (userId) => {
 };
 
 const getUsersWithDeposit = () => {
-  	return dbQuery.findAll('balances', {where: { action: 'Initial Deposit' }
+  	return dbQuery.findAll('balances', {
+		  where: { action: 'Initial Deposit' },
+		  raw: true
 	}).then((res) => {
 		return res;
 	});
