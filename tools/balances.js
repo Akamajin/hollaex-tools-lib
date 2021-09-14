@@ -17,11 +17,11 @@ const bulkCreateBalanceRow = (data) => {
 	return getModel('balances').bulkCreate(data);
 };
 
-const updateBalanceRow = ({id,action,amount,interest_rate,created_at}) => {
+const updateBalanceRow = ({id,action}) => {
 	return dbQuery.findOne('balances', { where: { id: id } })
 	.then((balance) => balance.update(
-		{action,amount,interest_rate,created_at},
-		{ fields: ['action','amount','interest_rate','created_at'] })
+		{action},
+		{ fields: ['action'] })
 	);
 };
 
@@ -29,6 +29,15 @@ const deleteBalanceRow = (id) => {
 	return getModel('balances').destroy({where: {id}});
 	//return getModel('balances').destroy({ id });
 };
+
+const deleteRequestRow = ({user_id, id}) => {
+	return getModel('balances').destroy({where: {
+		id,
+		user_id,
+		action: "Withdraw Request"
+	}});
+};
+
 
 const getBalancesByUserId = (userId) => {
 	return dbQuery.findAndCountAllWithRows('balances', {
@@ -49,7 +58,8 @@ module.exports = {
 	createBalanceRow,
 	updateBalanceRow,
 	deleteBalanceRow,
+	deleteRequestRow,
 	getBalancesByUserId,
 	bulkCreateBalanceRow,
-	geAllDeposits
+	geAllDeposits,
 };
