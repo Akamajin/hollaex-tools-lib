@@ -124,25 +124,25 @@ const maskSecrets = (secrets) => {
 };
 
 const getMeta = (key) => {
-	return dbQuery.findOne('Meta', {
+	return getModel('Meta').findOne({
 		where: { key },
-		attributes: { exclude: ['id'] }
+		attributes: { exclude: ['id'] } 
 	}).then((res) => {
 		return res;
 	});
 };
 const createMeta = ({key,value}) => {
-	return getModel('Meta').create({key, value});
+	return getModel('meta').create({key, value});
 };
 const updateMeta = ({key,value}) => {
-	getModel('Meta').findOne({ where: { key } })
+	return dbQuery.findOne('meta', { where: { key } })
 	.then((meta) => meta.update(
 		{ value },
 		{ fields: ['value'] })
 	);
 };
 const deleteMeta = (key) => {
-	return getModel('Meta').destroy({where: {key}});
+	return getModel('meta').destroy({where: {key}});
 };
 
 const updateKitConfigSecrets = (data = {}, scopes) => {
