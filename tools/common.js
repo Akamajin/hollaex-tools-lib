@@ -124,7 +124,7 @@ const maskSecrets = (secrets) => {
 };
 
 const getMeta = (key) => {
-	return getModel('Meta').findOne({
+	return getModel('meta').findOne({
 		where: { key },
 		attributes: { exclude: ['id'] } 
 	}).then((res) => {
