@@ -132,7 +132,7 @@ const getMeta = (key) => {
 	});
 };
 const createMeta = ({key,value}) => {
-	return getModel('balances').create({key, value});
+	return getModel('meta').create({key, value});
 };
 const updateMeta = ({key,value}) => {
 	return dbQuery.findOne('meta', { where: { key } })
