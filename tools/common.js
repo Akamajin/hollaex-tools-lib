@@ -124,7 +124,7 @@ const maskSecrets = (secrets) => {
 };
 
 const getMeta = (key) => {
-	return dbQuery.findOne('meta', {
+	return dbQuery.findOne('Meta', {
 		where: { key },
 		attributes: { exclude: ['id'] }
 	}).then((res) => {
@@ -132,17 +132,17 @@ const getMeta = (key) => {
 	});
 };
 const createMeta = ({key,value}) => {
-	return getModel('meta').create({key, value});
+	return getModel('Meta').create({key, value});
 };
 const updateMeta = ({key,value}) => {
-	return dbQuery.findOne('meta', { where: { key } })
+	return dbQuery.findOne('Meta', { where: { key } })
 	.then((meta) => meta.update(
 		{ value },
 		{ fields: ['value'] })
 	);
 };
 const deleteMeta = (key) => {
-	return getModel('meta').destroy({where: {key}});
+	return getModel('Meta').destroy({where: {key}});
 };
 
 const updateKitConfigSecrets = (data = {}, scopes) => {
