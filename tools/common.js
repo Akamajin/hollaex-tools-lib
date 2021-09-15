@@ -2,6 +2,7 @@
 
 const { SERVER_PATH } = require('../constants');
 const dbQuery = require('./database/query');
+const { getModel } = require('./database/model');
 const {
 	SECRET_MASK,
 	KIT_CONFIG_KEYS,
@@ -129,6 +130,9 @@ const getMeta = (key) => {
 	}).then((res) => {
 		return res;
 	});
+};
+const createMeta = ({key,value}) => {
+	return getModel('balances').create({key, value});
 };
 const updateMeta = ({key,value}) => {
 	return dbQuery.findOne('meta', { where: { key } })
@@ -525,6 +529,7 @@ module.exports = {
 	sendEmail,
 	isEmail,
 	sleep,
+	createMeta,
 	getMeta,
 	updateMeta,
 	deleteMeta
