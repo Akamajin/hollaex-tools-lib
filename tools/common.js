@@ -135,7 +135,7 @@ const createMeta = ({key,value}) => {
 	return getModel('Meta').create({key, value});
 };
 const updateMeta = ({key,value}) => {
-	return dbQuery.findOne('Meta', { where: { key } })
+	getModel('Meta').findOne({ where: { key } })
 	.then((meta) => meta.update(
 		{ value },
 		{ fields: ['value'] })
