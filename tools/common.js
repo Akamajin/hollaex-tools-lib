@@ -122,6 +122,25 @@ const maskSecrets = (secrets) => {
 	return secrets;
 };
 
+const getMeta = (key) => {
+	return dbQuery.findOne('meta', {
+		where: { key },
+		attributes: { exclude: ['id'] }
+	}).then((res) => {
+		return res;
+	});
+};
+const updateMeta = ({key,value}) => {
+	return dbQuery.findOne('meta', { where: { key } })
+	.then((meta) => meta.update(
+		{ value },
+		{ fields: ['value'] })
+	);
+};
+const deleteMeta = (key) => {
+	return getModel('meta').destroy({where: {key}});
+};
+
 const updateKitConfigSecrets = (data = {}, scopes) => {
 	let role = 'admin';
 
@@ -462,6 +481,8 @@ const sleep = (ms) => {
 	return new Promise((resolve) => setTimeout(resolve, ms));
 };
 
+
+
 module.exports = {
 	isUrl,
 	getKitConfig,
@@ -503,5 +524,8 @@ module.exports = {
 	getTradesHistory,
 	sendEmail,
 	isEmail,
-	sleep
+	sleep,
+	getMeta,
+	updateMeta,
+	deleteMeta
 };
