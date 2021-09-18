@@ -34,10 +34,22 @@ const deleteRequestRow = ({user_id, id}) => {
 	return getModel('balances').destroy({where: {
 		id,
 		user_id,
-		action: "Withdraw Request"
+		$or: [
+			{
+				action: 
+				{
+					$eq: "Withdraw (Pending)"
+				}
+			}, 
+			{
+				action: 
+				{
+					$eq: "Withdraw Investment (Pending)"
+				}
+			}
+		]
 	}});
 };
-
 
 const getBalancesByUserId = (userId) => {
 	return dbQuery.findAndCountAllWithRows('balances', {
