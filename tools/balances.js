@@ -63,7 +63,10 @@ const getBalancesByUserId = (userId) => {
 };
 
 const geAllDeposits = () => {
-  	return dbQuery.findAll('balances', {raw: true}).then(res => res);
+  	return dbQuery.findAll('balances', {
+		  raw: true,
+		  order: [['created_at', 'DESC']],
+		}).then(res => res);
 }
 
 module.exports = {
