@@ -79,7 +79,7 @@ const getUsersInvestmentsAndEmails = () => {
 			attributes: ['email']
 		}],
 		attributes: ['action', 'amount'],
-		order: [['email', 'ASC'], ['action', 'ASC']],
+		order: [['user.email', 'ASC'], ['action', 'ASC']],
 		raw: true
 	}).then(res => res);
 }
