@@ -76,9 +76,9 @@ const getUsersInvestmentsAndEmails = () => {
 			model: getModel('user'),
 			as: 'user',
 			required: true,
-			//attributes: ['email']
+			attributes: ['email']
 		}],
-		//attributes: ['user.email', 'action', 'amount'],
+		attributes: ['user.email', 'action', 'amount'],
 		//order: [['user.email', 'ASC'], ['action', 'ASC']],
 		raw: true
 	}).then(res => res);
