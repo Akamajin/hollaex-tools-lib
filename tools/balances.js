@@ -78,17 +78,8 @@ const getUsersInvestmentsAndEmails = () => {
 			required: true,
 			attributes: ['email']
 		}],
-		attributes: ['user.email', 'action', 'amount'],
-		//order: [['created_at', 'DESC'], ['id', 'ASC']],
+		attributes: ['action', 'amount'],
 	}).then(res => res);
-	
-	//return dbQuery.findAll('balances', {
-	//	where: {$or: [{action: "Capital Investment"}, {action: "Withdraw Investment"}]},
-	
-	//	attributes: ['action', 'amount'],
-	//order: [['created_at', 'DESC'], ['id', 'ASC']],
-	//	raw: true
-	//}).then(res => res);
 }
 
 module.exports = {
