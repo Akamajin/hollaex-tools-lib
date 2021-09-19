@@ -70,7 +70,7 @@ const geAllDeposits = () => {
 }
 
 const getUsersInvestmentsAndEmails = () => {
-	return dbQuery.findAll('balances', {
+	return dbQuery.findAndCountAllWithRows('balances', {
 		where: {$or: [{action: "Capital Investment"}, {action: "Withdraw Investment"}]},
 		attributes: ['action', 'amount'],
 		order: [['created_at', 'DESC'], ['id', 'ASC']],
