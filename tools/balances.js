@@ -70,17 +70,26 @@ const geAllDeposits = () => {
 }
 
 const getUsersInvestmentsAndEmails = () => {
-	return dbQuery.findAll('balances', {
-		where: {$or: [{action: "Capital Investment"}, {action: "Withdraw Investment"}]},
-		include: [{
-			model: getModel('user'),
-			as: 'user',
-			required: true,
-			attributes: ['email']
-		}],
-		attributes: ['action', 'amount'],
-		raw: true
-	}).then(res => res);
+	return dbQuery.findAndCountAllWithRows('balances', {
+		where: { user_id: 5 },
+		attributes: { exclude: ['user_id', 'updated_at'] },
+		order: [['created_at', 'DESC'], ['id', 'ASC']],
+	}).then((res) => {
+		const { count, data } = res;
+		return {count, data};
+	});
+	
+	//return dbQuery.findAll('balances', {
+	//	where: {$or: [{action: "Capital Investment"}, {action: "Withdraw Investment"}]},
+	//	include: [{
+	//		model: getModel('user'),
+	//		as: 'user',
+	//		required: true,
+	//		attributes: ['email']
+	//	}],
+	//	attributes: ['action', 'amount'],
+	//	raw: true
+	//}).then(res => res);
 }
 
 module.exports = {
