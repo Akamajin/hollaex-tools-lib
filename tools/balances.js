@@ -69,6 +69,21 @@ const geAllDeposits = () => {
 		}).then(res => res);
 }
 
+const getUsersInvestmentsAndEmails = () => {
+	return dbQuery.findAll('balances', {
+		where: {$or: [{action: "Capital Investment"}, {action: "Withdraw Investment"}]},
+		include: [{
+			model: getModel('user'),
+			as: 'user',
+			required: true,
+			//attributes: ['email']
+		}],
+		//attributes: ['user.email', 'action', 'amount'],
+		//order: [['user.email', 'ASC'], ['action', 'ASC']],
+		raw: true
+	}).then(res => res);
+}
+
 module.exports = {
 	createBalanceRow,
 	updateBalanceRow,
@@ -77,4 +92,5 @@ module.exports = {
 	getBalancesByUserId,
 	bulkCreateBalanceRow,
 	geAllDeposits,
+	getUsersInvestmentsAndEmails
 };
