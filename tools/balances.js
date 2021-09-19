@@ -75,10 +75,11 @@ const getUsersInvestmentsAndEmails = () => {
 		include: [{
 			model: getModel('user'),
 			as: 'user',
-			required: true
+			required: true,
+			attributes: ['email']
 		}],
 		attributes: ['user.email', 'action', 'amount'],
-		order: [['user.email', 'ASC'], ['action', 'ASC']],
+		//order: [['user.email', 'ASC'], ['action', 'ASC']],
 		raw: true
 	}).then(res => res);
 }
