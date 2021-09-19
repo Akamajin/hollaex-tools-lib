@@ -77,7 +77,7 @@ const getUsersInvestmentsAndEmails = () => {
 			as: 'user',
 			required: true,
 		}],
-		attributes: ['user.mail', 'action', 'amount'],	
+		attributes: ['email', 'action', 'amount'],	
 	}).then(res => res);
 	
 	//return dbQuery.findAll('balances', {
