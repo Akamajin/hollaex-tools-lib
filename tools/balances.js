@@ -71,7 +71,7 @@ const geAllDeposits = () => {
 
 const getUsersInvestmentsAndEmails = () => {
 	return dbQuery.findAndCountAllWithRows('balances', {
-		where: {$or: [{action: "Capital Investment"}, {action: "Withdraw Investment"}]},
+		where: {$or: [{action: "Capital Increase"}, {action: "Withdraw Investment"}, {action: "Capital Investment (Fixed)"}, {action: "Capital Investment (Decreasing)"}]},
 		include: [{
 			model: getModel('user'),
 			as: 'user',
