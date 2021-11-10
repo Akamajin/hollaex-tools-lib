@@ -3,7 +3,7 @@
 const { getModel } = require('./database/model');
 const dbQuery = require('./database/query');
 
-const createBalanceRow = ({user_id,action,amount,interest_rate,created_at,group,end_date}) => {
+const createBalanceRow = ({user_id,action,amount,interest_rate,created_at,group,end_date,meta}) => {
 	return getModel('balances').create({
 		user_id,
 		created_at,
@@ -11,7 +11,8 @@ const createBalanceRow = ({user_id,action,amount,interest_rate,created_at,group,
 		action,
 		amount,
 		group,
-		end_date
+		end_date,
+		meta
 	});
 };
 
